@@ -1,8 +1,9 @@
+import re
 import subprocess
 import shutil
 from git import Repo
 
-FOLDER_TO_CLONE = './project_to_check'
+FOLDER_TO_CLONE = './projects_to_check'
 CHECK_REQS_OUTPUT_PREFIX = 'Extra requirements:'
 
 def clone_repo(repo_url):
@@ -11,7 +12,9 @@ def clone_repo(repo_url):
     param repo_url: url of repo
     type repo_url: Text
     '''
-    Repo.clone_from(repo_url, FOLDER_TO_CLONE)
+    with Repo.clone_from(repo_url, f'{FOLDER_TO_CLONE}') as repo:
+        repo.git.clear_cache()
+        repo.close()
 
 def get_reqs_count():
     '''
@@ -23,7 +26,7 @@ def get_extra_reqs():
     '''
     The function running reqs check using pip-check-reqs
     '''
-    output = subprocess.run(["pip-extra-reqs", FOLDER_TO_CLONE], capture_output=True)
+    output = subprocess.run(["pip-extra-reqs", f'--ignore-file={FOLDER_TO_CLONE}/.git/*', FOLDER_TO_CLONE], capture_output=True)
     return len(output.stderr.decode('utf-8').split('\r\n'))-2
 
 
@@ -40,7 +43,8 @@ def calaulate_score():
 
 def get_score(repo_url):
     clone_repo(repo_url)
-    score = calaulate_score()
-    shutil.rmtree(FOLDER_TO_CLONE)
+    try:
+        score = calaulate_score()
+    finally:
+        shutil.rmtree(FOLDER_TO_CLONE)
     return score
-print(calaulate_score())

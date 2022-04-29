@@ -46,8 +46,9 @@ def main():
         if is_requirements_exist(repo):
             try:
                 #Calculating repos score
-                score = get_score(repo.clone_url)
-                repo_details.append((repo, score))
+                repo.score = get_score(repo.clone_url)
+                repo_details.append(repo)
+                
                 if len(repo_details) == amount_of_repos:
                     #Print repos output
                     display_repos(repo_details)
