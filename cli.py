@@ -1,3 +1,5 @@
+from githubCommunicator import get_repos, is_requirements_exist
+from scoreChecker import get_score
 
 def get_amount_of_repos():
     '''
