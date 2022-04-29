@@ -41,6 +41,7 @@ def main():
     #Getting repos details
     #Calculating repos score
     #Print repos output
+        if is_requirements_exist(repo):
 
 
 
