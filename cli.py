@@ -36,12 +36,22 @@ def display_repos(repos):
         print_repo_details(repo)
 
 def main():
+    repo_details = []
     amount_of_repos = get_amount_of_repos()
-    #Getting repos
     #Getting repos details
-    #Calculating repos score
-    #Print repos output
+    repos = get_repos()
+    for repo in repos:
         if is_requirements_exist(repo):
+            try:
+                #Calculating repos score
+                score = get_score(repo.clone_url)
+                repo_details.append((repo, score))
+                if len(repo_details) == amount_of_repos:
+                    #Print repos output
+                    display_repos(repo_details)
+                    return
+            except Exception as e:
+                print(f'Error while scoring {repo}')
 
 
 
