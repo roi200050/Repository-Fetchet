@@ -5,6 +5,7 @@ def get_repos(amount):
     The function gets GitHub repos using PyGithub
     param amount: amount of repos
     type amount: Number
+    returns Array of repos
     '''
 
     repos = []
@@ -16,4 +17,4 @@ def get_repos(amount):
     for repo in repositories:
         repos.append(repo)
         if len(repos) == amount:
-            break
+            return repos
