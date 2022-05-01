@@ -25,7 +25,7 @@ def print_repo_details(repo_details):
     print("--------------------------------------------")
     print(f'Name: {repo_details.full_name.split("/")[1]}')
     print(f'Author: {repo_details.full_name.split("/")[0]}')
-    print(f'Score: {int(repo_details.score*100)}/100')
+    print(f'Score: {repo_details.score} unused packages')
     print("--------------------------------------------")
 
 def display_repos(repos):
@@ -55,6 +55,8 @@ def main():
                     return
             except Exception as e:
                 print(f'Error while scoring {repo}')
+                print(e)
+                print("----------------------------------------")
 
 
 

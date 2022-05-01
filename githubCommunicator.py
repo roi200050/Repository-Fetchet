@@ -15,6 +15,6 @@ def get_repos():
     returns Instance of repos
     '''
 
-    g = Github("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")
+    g = Github("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")
 
     return g.search_repositories(query='language:python')
